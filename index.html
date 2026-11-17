@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERFORGE | סייברפורג' - חנות גיימינג וחומרה מתקדמת</title>
+    
+    <!-- Google Fonts: Heebo, Rubik & Orbitron for sharp arctic-gaming typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Orbitron:wght@700;800;900&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for crisp gaming & UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Heebo', 'sans-serif'],
+                        display: ['Rubik', 'Heebo', 'sans-serif'],
+                        cyber: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        arctic: {
+                            obsidian: '#091322',
+                            surface: '#132238',
+                            card: '#162842',
+                            slate: '#3D5269',
+                            ice: '#8BE9FD',
+                            cobalt: '#1B6CE8',
+                            white: '#FFFFFF',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-ice': '0 0 18px rgba(139, 233, 253, 0.35), 0 0 36px rgba(27, 108, 232, 0.25)',
+                        'neon-cobalt': '0 0 20px rgba(27, 108, 232, 0.45), 0 0 38px rgba(139, 233, 253, 0.2)',
+                        'card-hover': '0 14px 34px -6px rgba(139, 233, 253, 0.18), 0 6px 18px -3px rgba(27, 108, 232, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Palette #2: ARCTIC OVERCLOCK Background & Precision Tech Grid */
+        body {
+            background-color: #091322;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 18% 12%, rgba(139, 233, 253, 0.11) 0%, transparent 44%),
+                radial-gradient(circle at 82% 22%, rgba(27, 108, 232, 0.14) 0%, transparent 45%),
+                radial-gradient(circle at 75% 88%, rgba(61, 82, 105, 0.16) 0%, transparent 46%),
+                linear-gradient(rgba(139, 233, 253, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(27, 108, 232, 0.035) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 42px 42px, 42px 42px;
+        }
+
+        /* SPA Page Transition Animation */
+        .page-section {
+            display: none;
+            animation: fadeSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Subtle Floating Animation for Hero Cyber Hammer Emblem */
+        @keyframes floatHammer {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-hammer {
+            animation: floatHammer 4.5s ease-in-out infinite;
+        }
+
+        /* Active Nav Link Indicator matching Arctic Overclock Palette */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #8BE9FD, #1B6CE8, #FFFFFF);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px rgba(139, 233, 253, 0.75);
+        }
+
+        .nav-link.active {
+            color: #8BE9FD;
+            text-shadow: 0 0 14px rgba(139, 233, 253, 0.55);
+        }
+
+        .nav-link.active::after,
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #091322;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #8BE9FD, #1B6CE8);
+            border-radius: 4px;
+        }
+
+        /* Arctic Overclock Heading & Button Gradients */
+        .text-gradient-arctic {
+            background: linear-gradient(90deg, #FFFFFF 0%, #8BE9FD 48%, #1B6CE8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-gradient-arctic {
+            background: linear-gradient(135deg, #1B6CE8 0%, #2684FF 55%, #8BE9FD 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-arctic-ice selection:text-arctic-obsidian">
+
+    <!-- ==================== SHARED SVG DEFS FOR ARCTIC CYBERFORGE HAMMER LOGO ==================== -->
+    <svg width="0" height="0" class="hidden" aria-hidden="true">
+        <defs>
+            <!-- Arctic Overclock Gradient: Crisp White -> Ice Cyan -> Cobalt Blue -->
+            <linearGradient id="cf-arctic-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="45%" stop-color="#8BE9FD"/>
+                <stop offset="100%" stop-color="#1B6CE8"/>
+            </linearGradient>
+
+            <!-- Reverse Gradient for Inner Circuit Traces -->
+            <linearGradient id="cf-circuit-grad" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#8BE9FD"/>
+                <stop offset="55%" stop-color="#1B6CE8"/>
+                <stop offset="100%" stop-color="#FFFFFF"/>
+            </linearGradient>
+
+            <!-- Deep Obsidian Metallic Fill for Hammer Core -->
+            <linearGradient id="cf-metal-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1A2F4D"/>
+                <stop offset="100%" stop-color="#091322"/>
+            </linearGradient>
+
+            <!-- Ice Neon Glow Filter -->
+            <filter id="cf-glow" x="-25%" y="-25%" width="150%" height="150%">
+                <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- ==================== FIXED TOP NAVIGATION BAR ==================== -->
+    <header class="fixed top-0 inset-x-0 z-50 bg-[#091322]/92 backdrop-blur-md border-b border-arctic-slate/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand Logo: Cyber Hammer + Circuitry + CYBERFORGE / סייברפורג' -->
+                <button onclick="navigateTo('home')" class="flex items-center gap-3.5 group focus:outline-none text-right">
+                    <!-- Custom Vector Cyber Hammer Emblem in Arctic Overclock Palette -->
+                    <div class="relative w-12 h-12 rounded-xl bg-arctic-surface border border-arctic-ice/50 flex items-center justify-center shadow-neon-ice group-hover:scale-105 transition-transform duration-300">
+                        <svg viewBox="0 0 120 120" class="w-10 h-10 overflow-visible" filter="url(#cf-glow)">
+                            <!-- Speed / Data Stream Lines Behind Hammer -->
+                            <line x1="18" y1="74" x2="38" y2="54" stroke="#8BE9FD" stroke-width="2.2" stroke-linecap="round"/>
+                            <circle cx="16" cy="76" r="2" fill="#8BE9FD"/>
+                            <line x1="25" y1="86" x2="43" y2="68" stroke="#1B6CE8" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="68" y1="18" x2="88" y2="38" stroke="#8BE9FD" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="90" cy="40" r="2.2" fill="#8BE9FD"/>
+                            <line x1="80" y1="14" x2="102" y2="36" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+                            <circle cx="104" cy="38" r="2.2" fill="#FFFFFF"/>
+                            <line x1="92" y1="22" x2="108" y2="38" stroke="#1B6CE8" stroke-width="1.8" stroke-linecap="round"/>
+
+                            <!-- Angled Cyber Forge Hammer Group (-42 deg) -->
+                            <g transform="translate(60,60) rotate(-42)">
+                                <!-- Handle -->
+                                <rect x="-6" y="10" width="12" height="40" rx="3" fill="url(#cf-metal-dark)" stroke="url(#cf-arctic-grad)" stroke-width="2.5"/>
+                                <!-- Handle Tech Grip Lines -->
+                                <line x1="-5" y1="20" x2="5" y2="23" stroke="#8BE9FD" stroke-width="2"/>
+                                <line x1="-5" y1="28" x2="5" y2="31" stroke="#1B6CE8" stroke-width="2"/>
+                                <line x1="-5" y1="36" x2="5" y2="39" stroke="#FFFFFF" stroke-width="2"/>
+                                <!-- Pommel Cap -->
+                                <rect x="-8" y="47" width="16" height="5" rx="2" fill="#132238" stroke="#8BE9FD" stroke-width="2"/>
+
+                                <!-- Hammer Head (Chamfered Heavy Forge Block) -->
+                                <polygon points="-28,-22 28,-22 33,-15 33,5 28,12 -28,12 -33,5 -33,-15" fill="url(#cf-metal-dark)" stroke="url(#cf-arctic-grad)" stroke-width="3"/>
+                                
+                                <!-- Striking Faces -->
+                                <rect x="-36" y="-13" width="4" height="16" rx="1.5" fill="#8BE9FD"/>
+                                <rect x="32" y="-13" width="4" height="16" rx="1.5" fill="#FFFFFF"/>
+
+                                <!-- Inner Circuit Board Traces on Hammer Head -->
+                                <path d="M -20 -12 L -8 -12 L -3 -5 L 12 -5" fill="none" stroke="#8BE9FD" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="14" cy="-5" r="2.2" fill="#8BE9FD"/>
+                                <path d="M -18 2 L -4 2 L 2 -12 L 18 -12" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+                                <circle cx="20" cy="-12" r="2" fill="#FFFFFF"/>
+                                <circle cx="-18" cy="2" r="2" fill="#1B6CE8"/>
+                                <line x1="6" y1="4" x2="22" y2="4" stroke="#1B6CE8" stroke-width="2" stroke-linecap="round"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Brand Wordmark -->
+                    <div>
+                        <span class="block font-cyber font-black text-xl sm:text-2xl tracking-wider text-gradient-arctic leading-none">
+                            CYBERFORGE
+                        </span>
+                        <span class="block text-xs sm:text-sm text-white font-bold tracking-wide mt-1">
+                            סייברפורג'
+                        </span>
+                    </div>
+                </button>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8" aria-label="תפריט ראשי">
+                    <button onclick="navigateTo('home')" data-page="home" class="nav-link active text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
+                        דף בית
+                    </button>
+                    <button onclick="navigateTo('offer')" data-page="offer" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
+                        מה אנחנו מציעים
+                    </button>
+                    <button onclick="navigateTo('about')" data-page="about" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
+                        אודות
+                    </button>
+                    <button onclick="navigateTo('contact')" data-page="contact" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
+                        צור קשר
+                    </button>
+                </nav>
+
+                <!-- Equipment List / Cart Button & Mobile Menu Trigger -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openCartModal()" class="relative flex items-center gap-2 px-4 py-2.5 rounded-xl bg-arctic-surface border border-arctic-slate hover:border-arctic-ice text-sm font-bold text-white transition-all hover:shadow-neon-ice">
+                        <i class="fa-solid fa-bag-shopping text-arctic-ice"></i>
+                        <span class="hidden sm:inline">רשימת ציוד</span>
+                        <span id="cart-badge" class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-black rounded-full bg-arctic-cobalt text-white border border-arctic-ice/40">0</span>
+                    </button>
+
+                    <!-- Mobile Hamburger Button -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="פתח תפריט" class="md:hidden p-3 rounded-xl bg-arctic-surface border border-arctic-slate text-white hover:text-arctic-ice hover:border-arctic-ice transition">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-arctic-surface border-b border-arctic-slate px-4 pt-2 pb-5 space-y-2 shadow-2xl">
+            <button onclick="navigateTo('home')" data-page="home" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base bg-arctic-cobalt/25 text-arctic-ice border border-arctic-ice/40">
+                <i class="fa-solid fa-house ml-2 w-5"></i> דף בית
+            </button>
+            <button onclick="navigateTo('offer')" data-page="offer" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base text-slate-200 hover:bg-white/5">
+                <i class="fa-solid fa-gamepad ml-2 w-5"></i> מה אנחנו מציעים
+            </button>
+            <button onclick="navigateTo('about')" data-page="about" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base text-slate-200 hover:bg-white/5">
+                <i class="fa-solid fa-shield-halved ml-2 w-5"></i> אודות
+            </button>
+            <button onclick="navigateTo('contact')" data-page="contact" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base text-slate-200 hover:bg-white/5">
+                <i class="fa-solid fa-headset ml-2 w-5"></i> צור קשר
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN SPA CONTENT CONTAINER ==================== -->
+    <main class="flex-grow pt-28 pb-16">
+
+        <!-- =============================================================== -->
+        <!-- PAGE 1: דף בית (HOME)                                           -->
+        <!-- =============================================================== -->
+        <section id="page-home" class="page-section active">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Hero Banner Featuring the Chosen CyberForge Hammer Emblem in Arctic Overclock -->
+                <div class="relative rounded-3xl overflow-hidden bg-arctic-surface border border-arctic-slate/70 p-8 sm:p-12 lg:p-16 mb-14 shadow-2xl">
+                    <!-- Ambient Arctic Glows -->
+                    <div class="absolute -top-28 -left-28 w-80 h-80 bg-arctic-ice/15 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/3 w-72 h-72 bg-arctic-cobalt/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-28 -right-28 w-80 h-80 bg-arctic-slate/25 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <!-- Right Side: Marketing Headline & CTAs -->
+                        <div class="lg:col-span-7 space-y-6 text-right">
+                            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-arctic-obsidian/80 border border-arctic-ice/50 text-arctic-ice text-sm font-bold">
+                                <span class="w-2 h-2 rounded-full bg-arctic-ice animate-ping"></span>
+                                ביצועי אוברקלוק קפואים • 0% פשרות
+                            </div>
+
+                            <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-tight text-white">
+                                מחשלים עבורך עוצמה של <span class="text-gradient-arctic">אלופים</span>
+                            </h1>
+
+                            <p class="text-slate-200 text-lg sm:text-xl leading-relaxed max-w-2xl">
+                                ברוכים הבאים ל-<strong class="text-white">CYBERFORGE (סייברפורג')</strong>. כמו פטיש חישול מדויק, אנחנו בונים מערכות גיימינג קיצוניות עם קירור ארקטי מתקדם, מייבאים ציוד היקפי תחרותי ומספקים מעבדת שדרוגים ברמה הגבוהה בישראל.
+                            </p>
+
+                            <!-- Arctic Neon CTA Buttons -->
+                            <div class="flex flex-wrap items-center gap-4 pt-2">
+                                <button onclick="navigateTo('offer')" class="px-8 py-4 rounded-xl bg-arctic-cobalt hover:bg-blue-500 text-white font-display font-black text-lg shadow-neon-cobalt hover:scale-[1.02] transition-all flex items-center gap-2.5 border border-arctic-ice/40">
+                                    <span>לצפייה בקטלוג והמבצעים</span>
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </button>
+                                <button onclick="navigateTo('contact')" class="px-8 py-4 rounded-xl bg-arctic-obsidian/90 border-2 border-arctic-ice text-white font-display font-bold text-lg shadow-neon-ice hover:bg-arctic-ice/15 transition-all flex items-center gap-2.5">
+                                    <i class="fa-solid fa-sliders text-arctic-ice"></i>
+                                    <span>בניית מפרט אישי</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Left Side: Large Interactive Showcase of the Chosen CyberForge Logo -->
+                        <div class="lg:col-span-5">
+                            <div class="relative rounded-3xl bg-gradient-to-b from-[#172A46] to-[#091322] border border-arctic-ice/50 p-7 sm:p-9 shadow-neon-ice text-center">
+                                <div class="flex items-center justify-between border-b border-arctic-slate/60 pb-3 mb-6">
+                                    <span class="text-xs font-cyber tracking-widest text-arctic-ice">ARCTIC OVERCLOCK // V.26</span>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-arctic-cobalt/40 border border-arctic-ice/50 text-white text-xs font-black">CUSTOM BUILT</span>
+                                </div>
+
+                                <!-- Detailed Hero SVG Emblem in Arctic Overclock Colors -->
+                                <div class="animate-hammer py-2 flex flex-col items-center justify-center">
+                                    <svg viewBox="0 0 260 190" class="w-64 sm:w-72 h-auto overflow-visible" filter="url(#cf-glow)">
+                                        <!-- Circuit & Speed Lines Radiating Top-Right -->
+                                        <g stroke-linecap="round">
+                                            <line x1="145" y1="22" x2="188" y2="65" stroke="#8BE9FD" stroke-width="2.5"/>
+                                            <circle cx="192" cy="69" r="3" fill="#8BE9FD"/>
+                                            <line x1="162" y1="16" x2="208" y2="62" stroke="#1B6CE8" stroke-width="2.5"/>
+                                            <circle cx="212" cy="66" r="3" fill="#1B6CE8"/>
+                                            <line x1="178" y1="20" x2="218" y2="60" stroke="#FFFFFF" stroke-width="2.5"/>
+                                            <circle cx="222" cy="64" r="3" fill="#FFFFFF"/>
+                                            <line x1="132" y1="30" x2="165" y2="63" stroke="#8BE9FD" stroke-width="2"/>
+                                        </g>
+
+                                        <!-- Circuit & Speed Lines Radiating Bottom-Left -->
+                                        <g stroke-linecap="round">
+                                            <line x1="42" y1="128" x2="82" y2="88" stroke="#8BE9FD" stroke-width="2.5"/>
+                                            <circle cx="38" cy="132" r="3" fill="#8BE9FD"/>
+                                            <line x1="56" y1="145" x2="94" y2="107" stroke="#1B6CE8" stroke-width="2.5"/>
+                                            <circle cx="52" cy="149" r="3" fill="#1B6CE8"/>
+                                            <line x1="74" y1="154" x2="106" y2="122" stroke="#FFFFFF" stroke-width="2"/>
+                                            <circle cx="70" cy="158" r="2.8" fill="#FFFFFF"/>
+                                        </g>
+
+                                        <!-- Main Angled Cyber Forge Hammer -->
+                                        <g transform="translate(130, 95) rotate(-42)">
+                                            <!-- Hammer Handle -->
+                                            <rect x="-10" y="18" width="20" height="66" rx="4" fill="url(#cf-metal-dark)" stroke="url(#cf-arctic-grad)" stroke-width="3"/>
+                                            <!-- Handle Diagonal Cyber Grip -->
+                                            <line x1="-9" y1="30" x2="9" y2="36" stroke="#8BE9FD" stroke-width="2.5"/>
+                                            <line x1="-9" y1="42" x2="9" y2="48" stroke="#1B6CE8" stroke-width="2.5"/>
+                                            <line x1="-9" y1="54" x2="9" y2="60" stroke="#FFFFFF" stroke-width="2.5"/>
+                                            <line x1="-9" y1="66" x2="9" y2="72" stroke="#8BE9FD" stroke-width="2.5"/>
+                                            <!-- Handle Base Pommel -->
+                                            <polygon points="-13,82 13,82 10,92 -10,92" fill="#132238" stroke="url(#cf-arctic-grad)" stroke-width="2.5"/>
+
+                                            <!-- Hammer Collar -->
+                                            <rect x="-14" y="10" width="28" height="8" rx="2" fill="#162842" stroke="#1B6CE8" stroke-width="2"/>
+
+                                            <!-- Heavy Chamfered Forge Head -->
+                                            <polygon points="-44,-36 44,-36 52,-25 52,4 44,14 -44,14 -52,4 -52,-25" fill="url(#cf-metal-dark)" stroke="url(#cf-arctic-grad)" stroke-width="3.5"/>
+                                            
+                                            <!-- Left & Right Striking Plates -->
+                                            <polygon points="-58,-22 -52,-26 -52,5 -58,1" fill="#8BE9FD" opacity="0.95"/>
+                                            <polygon points="58,-22 52,-26 52,5 58,1" fill="#FFFFFF" opacity="0.95"/>
+
+                                            <!-- Detailed Inner Circuitry on Hammer Head -->
+                                            <path d="M -34 -22 L -14 -22 L -6 -10 L 18 -10 L 26 -20 L 36 -20" fill="none" stroke="#8BE9FD" stroke-width="2.2" stroke-linecap="round"/>
+                                            <circle cx="-34" cy="-22" r="2.8" fill="#8BE9FD"/>
+                                            <circle cx="36" cy="-20" r="2.8" fill="#8BE9FD"/>
+
+                                            <path d="M -36 -6 L -18 -6 L -10 4 L 14 4 L 22 -4 L 38 -4" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+                                            <circle cx="-36" cy="-6" r="2.8" fill="#FFFFFF"/>
+                                            <circle cx="38" cy="-4" r="2.8" fill="#FFFFFF"/>
+
+                                            <line x1="-22" y1="6" x2="2" y2="6" stroke="#1B6CE8" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="5" cy="6" r="2.5" fill="#1B6CE8"/>
+                                        </g>
+                                    </svg>
+
+                                    <!-- Brand Title Lockup Below Emblem -->
+                                    <div class="mt-2">
+                                        <div class="font-cyber font-black text-3xl sm:text-4xl tracking-wider text-gradient-arctic">
+                                            CYBERFORGE
+                                        </div>
+                                        <div class="font-display font-bold text-xl text-white tracking-widest mt-1">
+                                            סייברפורג'
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-arctic-slate/50 flex items-center justify-between text-xs text-slate-300">
+                                    <span>הנדסת חומרה וקירור מתקדם</span>
+                                    <span class="text-arctic-ice font-bold">תל אביב • ישראל</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Store Perks Section -->
+                <div class="mb-16">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <h2 class="font-display font-black text-3xl text-white mb-2">למה גיימרים בוחרים ב-<span class="text-gradient-arctic">CYBERFORGE</span>?</h2>
+                        <p class="text-slate-300">מעטפת שירות מלאה מהבורג הראשון ועד הניצחון במשחק</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Perk 1 -->
+                        <div class="rounded-2xl bg-arctic-card border border-arctic-slate/60 hover:border-arctic-ice p-7 transition-all hover:shadow-card-hover group">
+                            <div class="w-14 h-14 rounded-2xl bg-arctic-obsidian border border-arctic-ice/40 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-bolt text-2xl text-arctic-ice"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white mb-2">משלוח אקספרס מאובטח</h3>
+                            <p class="text-slate-300 leading-relaxed">
+                                משלוחים מהירים עד פתח הבית תוך 24–48 שעות לכל חלקי הארץ, עם אריזה כפולה מוגנת זעזועים למחשבים מורכבים.
+                            </p>
+                        </div>
+
+                        <!-- Perk 2 -->
+                        <div class="rounded-2xl bg-arctic-card border border-arctic-slate/60 hover:border-arctic-ice p-7 transition-all hover:shadow-card-hover group">
+                            <div class="w-14 h-14 rounded-2xl bg-arctic-obsidian border border-arctic-cobalt flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-shield-halved text-2xl text-arctic-cobalt"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white mb-2">3 שנות אחריות VIP</h3>
+                            <p class="text-slate-300 leading-relaxed">
+                                אחריות מקיפה במעבדה שלנו בתל אביב כולל שירות החלפה מהירה ובדיקות מאמץ (Stress Test) של 24 שעות לפני מסירה.
+                            </p>
+                        </div>
+
+                        <!-- Perk 3 -->
+                        <div class="rounded-2xl bg-arctic-card border border-arctic-slate/60 hover:border-arctic-ice p-7 transition-all hover:shadow-card-hover group">
+                            <div class="w-14 h-14 rounded-2xl bg-arctic-obsidian border border-white/40 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-snowflake text-2xl text-white"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white mb-2">קירור ארקטי וסידור כבלים</h3>
+                            <p class="text-slate-300 leading-relaxed">
+                                כל מערכת נבנית בעבודת יד על ידי טכנאי גיימינג מוסמכים, כולל כיול BIOS, זרימת אוויר אופטימלית ואוברקלוק יציב.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Deals / Highlights -->
+                <div>
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                        <div>
+                            <h2 class="font-display font-black text-3xl text-white">מבצעי השבוע החמים ❄️</h2>
+                            <p class="text-slate-300 text-sm mt-1">מלאי מוגבל בהנחות בלעדיות לחברי קהילת סייברפורג'</p>
+                        </div>
+                        <button onclick="navigateTo('offer')" class="px-5 py-2.5 rounded-xl bg-arctic-surface border border-arctic-ice/60 text-arctic-ice font-bold hover:bg-arctic-ice hover:text-arctic-obsidian transition">
+                            לכל המוצרים בקטלוג ←
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Deal Card 1 -->
+                        <div class="rounded-2xl bg-arctic-surface border border-arctic-slate/70 p-6 flex flex-col justify-between hover:border-arctic-ice transition">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-arctic-cobalt text-white text-xs font-black border border-arctic-ice/40">חיסכון של ₪1,200</span>
+                                    <i class="fa-solid fa-desktop text-arctic-ice text-xl"></i>
+                                </div>
+                                <h3 class="font-display font-bold text-xl text-white mb-2">באנדל סטרימר פרו</h3>
+                                <p class="text-slate-300 text-sm mb-4">מחשב גיימינג RTX 4070 Ti Super + מיקרופון אולפני + זרוע מפרקית ותאורת ARGB לבנה-קרח.</p>
+                            </div>
+                            <div class="pt-4 border-t border-arctic-slate/50 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-slate-400 line-through block">₪9,490</span>
+                                    <span class="font-display font-black text-2xl text-white">₪8,290</span>
+                                </div>
+                                <button onclick="addToCart('באנדל סטרימר פרו', 8290)" class="px-4 py-2.5 rounded-xl bg-arctic-obsidian border border-arctic-ice text-arctic-ice font-bold hover:bg-arctic-ice hover:text-arctic-obsidian transition">
+                                    הוסף לרשימה
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Deal Card 2 -->
+                        <div class="rounded-2xl bg-arctic-surface border border-arctic-slate/70 p-6 flex flex-col justify-between hover:border-arctic-ice transition">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-arctic-ice/15 text-arctic-ice border border-arctic-ice/50 text-xs font-black">240Hz OLED</span>
+                                    <i class="fa-solid fa-tv text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-display font-bold text-xl text-white mb-2">מסך גיימינג קעור 34" OLED</h3>
+                                <p class="text-slate-300 text-sm mb-4">זמן תגובה 0.03ms, רזולוציית UWQHD, תמיכה מלאה ב-G-SYNC ו-FreeSync Premium Pro.</p>
+                            </div>
+                            <div class="pt-4 border-t border-arctic-slate/50 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-slate-400 line-through block">₪4,390</span>
+                                    <span class="font-display font-black text-2xl text-white">₪3,790</span>
+                                </div>
+                                <button onclick="addToCart('מסך גיימינג קעור 34 אינץ OLED', 3790)" class="px-4 py-2.5 rounded-xl bg-arctic-obsidian border border-arctic-ice text-arctic-ice font-bold hover:bg-arctic-ice hover:text-arctic-obsidian transition">
+                                    הוסף לרשימה
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Deal Card 3 -->
+                        <div class="rounded-2xl bg-arctic-surface border border-arctic-slate/70 p-6 flex flex-col justify-between hover:border-arctic-ice transition">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="px-3 py-1 rounded-full bg-white/15 text-white border border-white/40 text-xs font-black">מהדורה מוגבלת</span>
+                                    <i class="fa-solid fa-keyboard text-arctic-ice text-xl"></i>
+                                </div>
+                                <h3 class="font-display font-bold text-xl text-white mb-2">סט ציוד היקפי ARCTIC WHITE</h3>
+                                <p class="text-slate-300 text-sm mb-4">מקלדת מכנית מגנטית Rapid Trigger + עכבר אלחוטי 49 גרם + משטח שליטה XL.</p>
+                            </div>
+                            <div class="pt-4 border-t border-arctic-slate/50 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-slate-400 line-through block">₪1,450</span>
+                                    <span class="font-display font-black text-2xl text-white">₪1,149</span>
+                                </div>
+                                <button onclick="addToCart('סט ציוד היקפי ARCTIC WHITE', 1149)" class="px-4 py-2.5 rounded-xl bg-arctic-obsidian border border-arctic-ice text-arctic-ice font-bold hover:bg-arctic-ice hover:text-arctic-obsidian transition">
+                                    הוסף לרשימה
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- PAGE 2: מה אנחנו מציעים (WHAT WE OFFER / CATALOG)               -->
+        <!-- =============================================================== -->
+        <section id="page-offer" class="page-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Header -->
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="text-arctic-ice font-bold tracking-widest text-sm uppercase">קטלוג חומרה ושירותים</span>
+                    <h1 class="font-display font-black text-4xl sm:text-5xl text-white mt-2 mb-4">מה אנחנו <span class="text-gradient-arctic">מציעים</span></h1>
+                    <p class="text-slate-300 text-lg">בחרו קטגוריה לסינון מהיר, השוו מפרטים והוסיפו פריטים לרשימת ההזמנה או לייעוץ אישי.</p>
+                </div>
+
+                <!-- Interactive Category Filter Buttons -->
+                <div id="category-filters" class="flex flex-wrap items-center justify-center gap-3 mb-10">
+                    <button onclick="filterCatalog('all')" data-cat="all" class="cat-btn active px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-cobalt text-white border border-arctic-ice/60 shadow-neon-cobalt transition-all">
+                        הכל
+                    </button>
+                    <button onclick="filterCatalog('pcs')" data-cat="pcs" class="cat-btn px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-surface text-slate-200 border border-arctic-slate hover:border-arctic-ice transition-all">
+                        <i class="fa-solid fa-computer ml-1.5"></i> מחשבי גיימינג
+                    </button>
+                    <button onclick="filterCatalog('peripherals')" data-cat="peripherals" class="cat-btn px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-surface text-slate-200 border border-arctic-slate hover:border-arctic-ice transition-all">
+                        <i class="fa-solid fa-headset ml-1.5"></i> ציוד היקפי
+                    </button>
+                    <button onclick="filterCatalog('consoles')" data-cat="consoles" class="cat-btn px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-surface text-slate-200 border border-arctic-slate hover:border-arctic-ice transition-all">
+                        <i class="fa-solid fa-gamepad ml-1.5"></i> קונסולות
+                    </button>
+                    <button onclick="filterCatalog('upgrades')" data-cat="upgrades" class="cat-btn px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-surface text-slate-200 border border-arctic-slate hover:border-arctic-ice transition-all">
+                        <i class="fa-solid fa-microchip ml-1.5"></i> שדרוגים ותיקונים
+                    </button>
+                </div>
+
+                <!-- Dynamic Catalog Grid -->
+                <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <!-- Populated via JavaScript -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- PAGE 3: אודות (ABOUT)                                           -->
+        <!-- =============================================================== -->
+        <section id="page-about" class="page-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Story & Mission Banner -->
+                <div class="rounded-3xl bg-arctic-surface border border-arctic-slate/70 p-8 sm:p-12 mb-12 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-80 h-80 bg-arctic-ice/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                        <div class="space-y-5">
+                            <span class="inline-block px-3.5 py-1 rounded-full bg-arctic-obsidian border border-arctic-ice/50 text-arctic-ice text-sm font-bold">
+                                הסיפור שלנו // SINCE 2018
+                            </span>
+                            <h1 class="font-display font-black text-4xl sm:text-5xl text-white leading-tight">
+                                נולדנו מתוך תשוקה אמיתית ל-<span class="text-gradient-arctic">חומרה וגיימינג</span>
+                            </h1>
+                            <p class="text-slate-200 text-lg leading-relaxed">
+                                <strong class="text-white">CYBERFORGE (סייברפורג')</strong> הוקמה בתל אביב על ידי קבוצת מהנדסי חומרה, אוברקלוקרים ושחקני Esports תחרותיים, מתוך מטרה אחת ברורה: להעניק לקהילת הגיימרים בישראל חוויית קנייה, הרכבה ושירות ברמה הבינלאומית הגבוהה ביותר.
+                            </p>
+                            <p class="text-slate-300 leading-relaxed">
+                                אנחנו לא מאמינים במפרטים גנריים או בפשרות על ספקי כוח וקירור. כל מחשב שיוצא מהמעבדה שלנו מתוכנן בקפידה לאיזון תרמי מושלם, שקט מופתי וביצועים מקסימליים במשחקים התובעניים ביותר.
+                            </p>
+                        </div>
+
+                        <!-- Lab Expertise Highlights -->
+                        <div class="space-y-4">
+                            <div class="p-6 rounded-2xl bg-arctic-obsidian border border-arctic-slate/60 flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-arctic-surface border border-arctic-ice/40 text-arctic-ice flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-temperature-arrow-down text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-lg text-white">מומחיות בקירור מותאם אישית (Custom Loop)</h3>
+                                    <p class="text-slate-300 text-sm mt-1">תכנון ובנייה של מערכות קירור מים קשיחות ורכות להורדת טמפרטורות בעומס קיצוני.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-6 rounded-2xl bg-arctic-obsidian border border-arctic-slate/60 flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-arctic-surface border border-arctic-cobalt text-arctic-cobalt flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-gauge-high text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-lg text-white">אופטימיזציית FPS וכיול חומרה</h3>
+                                    <p class="text-slate-300 text-sm mt-1">הגדרות פרופילי זיכרון XMP/EXPO, כיוון עקומות מאווררים ובדיקות יציבות מלאות לפני מסירה.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-6 rounded-2xl bg-arctic-obsidian border border-arctic-slate/60 flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-arctic-surface border border-white/40 text-white flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-users-gear text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-lg text-white">תמיכה בגיימרים ויוצרי תוכן</h3>
+                                    <p class="text-slate-300 text-sm mt-1">ליווי אישי בבחירת ציוד סטרימינג, עריכת וידאו 4K ופתרונות אחסון מהירים.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="rounded-2xl bg-arctic-card border border-arctic-ice/40 p-7 text-center shadow-lg">
+                        <div class="font-display font-black text-4xl sm:text-5xl text-arctic-ice mb-2">4,800+</div>
+                        <div class="font-bold text-white text-lg">מחשבי קצה שהורכבו</div>
+                        <p class="text-slate-300 text-xs mt-1">בהתאמה אישית מלאה ללקוחות</p>
+                    </div>
+
+                    <div class="rounded-2xl bg-arctic-card border border-arctic-cobalt p-7 text-center shadow-lg">
+                        <div class="font-display font-black text-4xl sm:text-5xl text-white mb-2">99.4%</div>
+                        <div class="font-bold text-white text-lg">שביעות רצון לקוחות</div>
+                        <p class="text-slate-300 text-xs mt-1">דירוג ממוצע של 4.9 כוכבים</p>
+                    </div>
+
+                    <div class="rounded-2xl bg-arctic-card border border-arctic-ice/40 p-7 text-center shadow-lg">
+                        <div class="font-display font-black text-4xl sm:text-5xl text-white mb-2">3 <span class="text-arctic-ice text-2xl">שנים</span></div>
+                        <div class="font-bold text-white text-lg">אחריות מעבדה מלאה</div>
+                        <p class="text-slate-300 text-xs mt-1">כולל שירות אקספרס וגיבוי</p>
+                    </div>
+
+                    <div class="rounded-2xl bg-arctic-card border border-arctic-slate p-7 text-center shadow-lg">
+                        <div class="font-display font-black text-4xl sm:text-5xl text-arctic-ice mb-2">24h</div>
+                        <div class="font-bold text-white text-lg">בדיקות מאמץ לכל מחשב</div>
+                        <p class="text-slate-300 text-xs mt-1">אפס תקלות ברגע ההפעלה</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- PAGE 4: צור קשר (CONTACT US)                                    -->
+        <!-- =============================================================== -->
+        <section id="page-contact" class="page-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-arctic-ice font-bold tracking-widest text-sm uppercase">דברו איתנו</span>
+                    <h1 class="font-display font-black text-4xl sm:text-5xl text-white mt-2 mb-4">צור <span class="text-gradient-arctic">קשר</span></h1>
+                    <p class="text-slate-300 text-lg">רוצים להתייעץ לגבי מפרט חדש, לתאם ביקור במעבדה או לבדוק זמינות במלאי? הצוות שלנו זמין עבורכם.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Contact Form (7 Columns) -->
+                    <div class="lg:col-span-7 rounded-3xl bg-arctic-surface border border-arctic-slate/70 p-7 sm:p-10 shadow-xl">
+                        <h2 class="font-display font-bold text-2xl text-white mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-arctic-ice"></i>
+                            <span>שלחו לנו פנייה מהירה</span>
+                        </h2>
+
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" novalidate class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <!-- Name -->
+                                <div>
+                                    <label for="contact-name" class="block text-sm font-bold text-slate-200 mb-2">שם מלא *</label>
+                                    <input type="text" id="contact-name" required placeholder="ישראל ישראלי"
+                                        class="w-full px-4 py-3.5 rounded-xl bg-arctic-obsidian border border-arctic-slate text-white placeholder-slate-500 focus:outline-none focus:border-arctic-ice transition">
+                                    <p id="err-name" class="hidden text-xs text-arctic-ice mt-1 font-bold">נא להזין שם מלא (לפחות 2 תווים).</p>
+                                </div>
+
+                                <!-- Phone -->
+                                <div>
+                                    <label for="contact-phone" class="block text-sm font-bold text-slate-200 mb-2">טלפון נייד *</label>
+                                    <input type="tel" id="contact-phone" required placeholder="050-0000000"
+                                        class="w-full px-4 py-3.5 rounded-xl bg-arctic-obsidian border border-arctic-slate text-white placeholder-slate-500 focus:outline-none focus:border-arctic-ice transition">
+                                    <p id="err-phone" class="hidden text-xs text-arctic-ice mt-1 font-bold">נא להזין מספר טלפון ישראלי תקין.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <!-- Email -->
+                                <div>
+                                    <label for="contact-email" class="block text-sm font-bold text-slate-200 mb-2">כתובת אימייל *</label>
+                                    <input type="email" id="contact-email" required placeholder="gamer@example.com" dir="ltr"
+                                        class="w-full px-4 py-3.5 rounded-xl bg-arctic-obsidian border border-arctic-slate text-white placeholder-slate-500 text-right focus:outline-none focus:border-arctic-ice transition">
+                                    <p id="err-email" class="hidden text-xs text-arctic-ice mt-1 font-bold">נא להזין כתובת אימייל תקינה.</p>
+                                </div>
+
+                                <!-- Subject Dropdown -->
+                                <div>
+                                    <label for="contact-subject" class="block text-sm font-bold text-slate-200 mb-2">נושא הפנייה *</label>
+                                    <select id="contact-subject"
+                                        class="w-full px-4 py-3.5 rounded-xl bg-arctic-obsidian border border-arctic-slate text-white focus:outline-none focus:border-arctic-ice transition">
+                                        <option value="בניית מפרט מחשב גיימינג">בניית מפרט מחשב גיימינג</option>
+                                        <option value="רכישת ציוד היקפי / קונסולה">רכישת ציוד היקפי / קונסולה</option>
+                                        <option value="תיאום מעבדה, שדרוג או תיקון">תיאום מעבדה, שדרוג או תיקון</option>
+                                        <option value="בירור לגבי הזמנה קיימת">בירור לגבי הזמנה קיימת</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label for="contact-message" class="block text-sm font-bold text-slate-200 mb-2">תוכן ההודעה / תקציב משוער *</label>
+                                <textarea id="contact-message" rows="4" required placeholder="ספרו לנו איזה משחקים אתם משחקים, מה התקציב שלכם או איך נוכל לעזור..."
+                                    class="w-full px-4 py-3.5 rounded-xl bg-arctic-obsidian border border-arctic-slate text-white placeholder-slate-500 focus:outline-none focus:border-arctic-ice transition"></textarea>
+                                <p id="err-message" class="hidden text-xs text-arctic-ice mt-1 font-bold">נא לכתוב הודעה קצרה כדי שנוכל לעזור.</p>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-arctic-cobalt hover:bg-blue-500 text-white font-display font-black text-lg border border-arctic-ice/50 shadow-neon-cobalt transition flex items-center justify-center gap-2">
+                                <span>שלח פנייה לצוות CYBERFORGE</span>
+                                <i class="fa-solid fa-bolt text-arctic-ice"></i>
+                            </button>
+                        </form>
+
+                        <!-- Instant Confirmation Feedback Banner -->
+                        <div id="contact-success" class="hidden mt-6 p-6 rounded-2xl bg-arctic-obsidian border border-arctic-ice text-white shadow-neon-ice">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-arctic-cobalt/40 border border-arctic-ice text-arctic-ice flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-check text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-lg text-white">הפנייה התקבלה בהצלחה!</h3>
+                                    <p id="contact-success-text" class="text-sm text-slate-200 mt-1"></p>
+                                    <button onclick="resetContactForm()" class="mt-3 text-xs font-bold underline text-arctic-ice hover:text-white">
+                                        שליחת פנייה נוספת
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Store Location & Hours (5 Columns) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="rounded-3xl bg-arctic-card border border-arctic-slate/70 p-7 space-y-6">
+                            <h3 class="font-display font-bold text-2xl text-white">חנות הדגל והמעבדה</h3>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-ice/40 text-arctic-ice flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-white">כתובת החנות</span>
+                                    <span class="text-slate-300 text-sm">רחוב יגאל אלון 94, מגדלי אלון, תל אביב-יפו</span>
+                                    <span class="block text-xs text-arctic-ice mt-1">חניה חינם ללקוחות החנות בחניון המגדל</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-cobalt text-arctic-cobalt flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-clock text-lg"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-white">שעות פעילות</span>
+                                    <ul class="text-slate-300 text-sm space-y-1 mt-1">
+                                        <li>א' - ה': 10:00 – 20:00</li>
+                                        <li>יום ו': 09:30 – 14:30</li>
+                                        <li>שבת: סגור (זמינים בדיסקורד ובמייל)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-white/40 text-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone-volume text-lg"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-white">מוקד מכירות ותמיכה</span>
+                                    <span class="text-slate-200 text-sm block mt-0.5" dir="ltr">03-777-9090</span>
+                                    <span class="text-slate-300 text-sm block" dir="ltr">support@cyberforge.co.il</span>
+                                </div>
+                            </div>
+
+                            <!-- Social Links -->
+                            <div class="pt-4 border-t border-arctic-slate/50">
+                                <span class="block text-sm font-bold text-slate-200 mb-3">הצטרפו לקהילה שלנו ברשתות:</span>
+                                <div class="flex items-center gap-3">
+                                    <a href="#discord" onclick="event.preventDefault(); showToast('קישור לשרת הדיסקורד של CYBERFORGE הועתק!')" aria-label="Discord" class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-slate hover:border-arctic-ice text-slate-200 hover:text-arctic-ice flex items-center justify-center transition">
+                                        <i class="fa-brands fa-discord text-lg"></i>
+                                    </a>
+                                    <a href="#instagram" onclick="event.preventDefault(); showToast('עוברים לעמוד האינסטגרם @cyberforge.il')" aria-label="Instagram" class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-slate hover:border-arctic-ice text-slate-200 hover:text-arctic-ice flex items-center justify-center transition">
+                                        <i class="fa-brands fa-instagram text-lg"></i>
+                                    </a>
+                                    <a href="#youtube" onclick="event.preventDefault(); showToast('עוברים לערוץ היוטיוב של CYBERFORGE')" aria-label="YouTube" class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-slate hover:border-arctic-ice text-slate-200 hover:text-arctic-ice flex items-center justify-center transition">
+                                        <i class="fa-brands fa-youtube text-lg"></i>
+                                    </a>
+                                    <a href="#tiktok" onclick="event.preventDefault(); showToast('עוברים לעמוד הטיקטוק של CYBERFORGE')" aria-label="TikTok" class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-slate hover:border-arctic-ice text-slate-200 hover:text-arctic-ice flex items-center justify-center transition">
+                                        <i class="fa-brands fa-tiktok text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER WITH ARCTIC CYBERFORGE LOGO ==================== -->
+    <footer class="bg-[#060D18] border-t border-arctic-slate/50 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <!-- Footer Brand Emblem -->
+            <button onclick="navigateTo('home')" class="flex items-center gap-3 focus:outline-none group">
+                <svg viewBox="0 0 120 120" class="w-9 h-9 overflow-visible" filter="url(#cf-glow)">
+                    <g transform="translate(60,60) rotate(-42)">
+                        <rect x="-6" y="10" width="12" height="40" rx="3" fill="#132238" stroke="url(#cf-arctic-grad)" stroke-width="2.5"/>
+                        <polygon points="-28,-22 28,-22 33,-15 33,5 28,12 -28,12 -33,5 -33,-15" fill="#132238" stroke="url(#cf-arctic-grad)" stroke-width="3"/>
+                        <path d="M -18 -8 L 16 -8 M -14 2 L 12 2" stroke="#8BE9FD" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                </svg>
+                <div class="text-right">
+                    <span class="font-cyber font-black text-lg text-gradient-arctic block leading-none">CYBERFORGE</span>
+                    <span class="text-xs text-white font-bold">סייברפורג'</span>
+                </div>
+            </button>
+
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-300 font-medium">
+                <button onclick="navigateTo('home')" class="hover:text-arctic-ice transition">דף בית</button>
+                <button onclick="navigateTo('offer')" class="hover:text-arctic-ice transition">מה אנחנו מציעים</button>
+                <button onclick="navigateTo('about')" class="hover:text-arctic-ice transition">אודות</button>
+                <button onclick="navigateTo('contact')" class="hover:text-arctic-ice transition">צור קשר</button>
+            </div>
+
+            <p class="text-xs text-slate-400">
+                © 2026 CYBERFORGE סייברפורג' גיימינג בע"מ. כל הזכויות שמורות.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==================== INTERACTIVE CART / INQUIRY MODAL ==================== -->
+    <div id="cart-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="w-full max-w-lg rounded-3xl bg-arctic-surface border border-arctic-ice/50 p-6 sm:p-8 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-arctic-slate/60 pb-4 mb-5">
+                <h3 class="font-display font-black text-2xl text-white flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-arctic-ice"></i>
+                    <span>רשימת הציוד שלך</span>
+                </h3>
+                <button onclick="closeCartModal()" aria-label="סגור חלון" class="w-9 h-9 rounded-lg bg-arctic-obsidian hover:bg-arctic-cobalt text-slate-200 hover:text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="cart-items-container" class="space-y-3 max-h-72 overflow-y-auto pl-1">
+                <!-- Dynamic cart items -->
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-arctic-slate/60">
+                <div class="flex items-center justify-between mb-5">
+                    <span class="text-slate-300 font-bold">סה"כ משוער:</span>
+                    <span id="cart-total" class="font-display font-black text-2xl text-gradient-arctic">₪0</span>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="proceedToQuote()" class="flex-1 py-3.5 px-5 rounded-xl bg-arctic-cobalt hover:bg-blue-500 text-white font-display font-black border border-arctic-ice/40 transition">
+                        המשך לקבלת הצעת מחיר
+                    </button>
+                    <button onclick="clearCart()" class="py-3.5 px-4 rounded-xl bg-arctic-obsidian border border-arctic-slate text-slate-200 hover:text-arctic-ice hover:border-arctic-ice font-bold transition">
+                        נקה רשימה
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FLOATING TOAST NOTIFICATION ==================== -->
+    <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- ==================== VANILLA JAVASCRIPT SPA LOGIC ==================== -->
+    <script>
+        // --- 1. Product & Service Catalog Data ---
+        const catalogData = [
+            {
+                id: 1,
+                category: 'pcs',
+                categoryLabel: 'מחשבי גיימינג',
+                badge: '4K ULTRA',
+                icon: 'fa-computer',
+                title: 'CYBERFORGE GLACIER X9',
+                specs: ['Intel Core Ultra 9 285K', 'NVIDIA GeForce RTX 5090 32GB', '64GB DDR5 6400MHz ARGB', '2TB NVMe Gen5 SSD'],
+                price: 15490
+            },
+            {
+                id: 2,
+                category: 'pcs',
+                categoryLabel: 'מחשבי גיימינג',
+                badge: 'התמורה הטובה ביותר',
+                icon: 'fa-microchip',
+                title: 'CYBERFORGE COBALT PRO',
+                specs: ['AMD Ryzen 7 9800X3D', 'NVIDIA GeForce RTX 4070 Ti Super', '32GB DDR5 6000MHz', '1TB NVMe Gen4 SSD + קירור נוזלי'],
+                price: 8490
+            },
+            {
+                id: 3,
+                category: 'peripherals',
+                categoryLabel: 'ציוד היקפי',
+                badge: 'ESPORTS GRADE',
+                icon: 'fa-keyboard',
+                title: 'מקלדת מכנית APEX MAGNETIC TKL',
+                specs: ['סוויצ׳ים מגנטיים Hall Effect', 'טכנולוגיית Rapid Trigger 0.1mm', 'גוף אלומיניום מוברש', 'תאורת Ice-Blue לכל מקש'],
+                price: 749
+            },
+            {
+                id: 4,
+                category: 'peripherals',
+                categoryLabel: 'ציוד היקפי',
+                badge: '49 גרם בלבד',
+                icon: 'fa-computer-mouse',
+                title: 'עכבר אלחוטי PHANTOM ULTRA 8K',
+                specs: ['חיישן אופטי 30,000 DPI', 'קצב דגימה 8000Hz אלחוטי', 'סוללה לעד 90 שעות משחק', 'מתגים אופטיים ללא השהיה'],
+                price: 529
+            },
+            {
+                id: 5,
+                category: 'consoles',
+                categoryLabel: 'קונסולות',
+                badge: 'במלאי מיידי',
+                icon: 'fa-gamepad',
+                title: 'PlayStation 5 Pro + בקר DualSense Edge',
+                specs: ['אחסון 2TB SSD מהיר במיוחד', 'תמיכה ב-Ray Tracing מתקדם ו-8K', 'כולל בקר פרו עם כפתורים אחוריים', 'אחריות יבואן רשמי לשנתיים'],
+                price: 3890
+            },
+            {
+                id: 6,
+                category: 'consoles',
+                categoryLabel: 'קונסולות',
+                badge: 'גיימינג נייד',
+                icon: 'fa-mobile-screen-button',
+                title: 'קונסולה ניידת ROG ALLY X EXTREME',
+                specs: ['מעבד AMD Ryzen Z1 Extreme', 'זיכרון 24GB LPDDR5X', 'מסך 7" FHD 120Hz FreeSync', 'סוללה מוגדלת 80Wh'],
+                price: 3490
+            },
+            {
+                id: 7,
+                category: 'upgrades',
+                categoryLabel: 'שדרוגים ותיקונים',
+                badge: 'שירות מעבדה',
+                icon: 'fa-screwdriver-wrench',
+                title: 'חבילת טיפול 10,000 ואופטימיזציה',
+                specs: ['ניקוי אבק עמוק בלחץ אוויר', 'החלפת משחה תרמית פרימיום (Kryonaut)', 'סידור כבלים מחדש ועדכון BIOS', 'בדיקת טמפרטורות ועומסים מלאה'],
+                price: 349
+            },
+            {
+                id: 8,
+                category: 'upgrades',
+                categoryLabel: 'שדרוגים ותיקונים',
+                badge: 'התקנה במקום',
+                icon: 'fa-snowflake',
+                title: 'שדרוג קירור נוזלי ARCTIC AIO 360mm',
+                specs: ['רדיאטור 360 מ"מ בעל ביצועים גבוהים', '3 מאווררים שקטים בלחץ סטטי גבוה', 'תצוגת LCD דיגיטלית על המשאבה', 'כולל התקנה מקצועית במעבדה'],
+                price: 890
+            },
+            {
+                id: 9,
+                category: 'peripherals',
+                categoryLabel: 'ציוד היקפי',
+                badge: 'סאונד היקפי',
+                icon: 'fa-headset',
+                title: 'אוזניות אלחוטיות NOVA PRO WIRELESS',
+                specs: ['ביטול רעשים אקטיבי (ANC)', 'דרייברים Hi-Res מגנטיים', 'מיקרופון נשלף עם סינון רעשי AI', 'חיבור כפול 2.4GHz + Bluetooth'],
+                price: 1190
+            }
+        ];
+
+        // --- 2. State Management ---
+        let currentPage = 'home';
+        let activeCategory = 'all';
+        let cart = [];
+
+        // --- 3. SPA Navigation Controller ---
+        function navigateTo(pageId) {
+            if (!['home', 'offer', 'about', 'contact'].includes(pageId)) return;
+            currentPage = pageId;
+
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            const targetSection = document.getElementById(`page-${pageId}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                if (link.dataset.page === pageId) {
+                    link.className = 'mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base bg-arctic-cobalt/25 text-arctic-ice border border-arctic-ice/40';
+                } else {
+                    link.className = 'mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base text-slate-200 hover:bg-white/5';
+                }
+            });
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = document.getElementById('mobile-menu-icon');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                mobileIcon.classList.replace('fa-xmark', 'fa-bars');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = document.getElementById('mobile-menu-icon');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            
+            if (isHidden) {
+                mobileIcon.classList.replace('fa-xmark', 'fa-bars');
+            } else {
+                mobileIcon.classList.replace('fa-bars', 'fa-xmark');
+            }
+        }
+
+        // --- 4. Catalog Rendering & Live Filtering ---
+        function renderCatalog(category = 'all') {
+            const grid = document.getElementById('catalog-grid');
+            const filtered = category === 'all' 
+                ? catalogData 
+                : catalogData.filter(item => item.category === category);
+
+            grid.innerHTML = filtered.map(item => `
+                <article class="rounded-2xl bg-arctic-card border border-arctic-slate/60 hover:border-arctic-ice p-6 flex flex-col justify-between transition-all hover:shadow-card-hover group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full bg-arctic-obsidian border border-arctic-ice/40 text-arctic-ice text-xs font-bold">
+                                ${item.badge}
+                            </span>
+                            <span class="text-xs text-slate-300 font-medium">${item.categoryLabel}</span>
+                        </div>
+
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-arctic-obsidian border border-arctic-slate group-hover:border-arctic-ice flex items-center justify-center shrink-0 transition">
+                                <i class="fa-solid ${item.icon} text-arctic-ice text-lg"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white leading-snug">${item.title}</h3>
+                        </div>
+
+                        <ul class="space-y-2 my-5 text-sm text-slate-200 border-t border-arctic-slate/50 pt-4">
+                            ${item.specs.map(spec => `
+                                <li class="flex items-center gap-2">
+                                    <i class="fa-solid fa-check text-arctic-ice text-xs"></i>
+                                    <span>${spec}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 border-t border-arctic-slate/50 flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-xs text-slate-300 block">מחיר כולל מע"מ</span>
+                            <span class="font-display font-black text-2xl text-white">₪${item.price.toLocaleString()}</span>
+                        </div>
+                        <button onclick="addToCart('${item.title.replace(/'/g, "\\'")}', ${item.price})" 
+                            class="px-4 py-3 rounded-xl bg-arctic-cobalt hover:bg-blue-500 text-white font-display font-black text-sm border border-arctic-ice/40 shadow-neon-cobalt transition flex items-center gap-2">
+                            <i class="fa-solid fa-plus text-arctic-ice"></i>
+                            <span>הוסף לרשימה</span>
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function filterCatalog(category) {
+            activeCategory = category;
+
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.className = 'cat-btn active px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-cobalt text-white border border-arctic-ice/60 shadow-neon-cobalt transition-all';
+                } else {
+                    btn.className = 'cat-btn px-5 py-3 rounded-xl font-bold text-sm sm:text-base bg-arctic-surface text-slate-200 border border-arctic-slate hover:border-arctic-ice transition-all';
+                }
+            });
+
+            renderCatalog(category);
+        }
+
+        // --- 5. Interactive Cart / Inquiry List & Toast Notifications ---
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartBadge();
+            showToast(`"${title}" נוסף לרשימת הציוד שלך!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartBadge();
+            renderCartModalItems();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartBadge();
+            renderCartModalItems();
+            showToast('רשימת הציוד נוקתה.');
+        }
+
+        function updateCartBadge() {
+            document.getElementById('cart-badge').textContent = cart.length;
+        }
+
+        function openCartModal() {
+            renderCartModalItems();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-container');
+            const totalEl = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-300">
+                        <i class="fa-solid fa-box-open text-4xl text-arctic-slate mb-3 block"></i>
+                        <p class="font-bold text-white">רשימת הציוד שלך ריקה כרגע.</p>
+                        <p class="text-xs mt-1 text-slate-300">הוסף מחשבים או ציוד היקפי מהקטלוג כדי לקבל הצעת מחיר מרוכזת.</p>
+                    </div>
+                `;
+                totalEl.textContent = '₪0';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map((item, idx) => {
+                total += item.price;
+                return `
+                    <div class="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-arctic-obsidian border border-arctic-slate/60">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${item.title}</h4>
+                            <span class="text-arctic-ice font-display font-bold text-sm">₪${item.price.toLocaleString()}</span>
+                        </div>
+                        <button onclick="removeFromCart(${idx})" aria-label="הסר פריט" class="text-slate-300 hover:text-arctic-ice p-2 transition">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.textContent = `₪${total.toLocaleString()}`;
+        }
+
+        function proceedToQuote() {
+            closeCartModal();
+            navigateTo('contact');
+            
+            if (cart.length > 0) {
+                const itemsSummary = cart.map(i => `• ${i.title} (₪${i.price.toLocaleString()})`).join('\n');
+                const messageBox = document.getElementById('contact-message');
+                messageBox.value = `היי צוות CYBERFORGE, אשמח לקבל הצעת מחיר וזמינות עבור הפריטים הבאים:\n${itemsSummary}`;
+            }
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto flex items-center gap-3 px-5 py-3.5 rounded-xl bg-arctic-surface border border-arctic-ice text-white shadow-neon-ice text-sm font-bold transition-all duration-300';
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check text-arctic-ice text-lg"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- 6. Contact Form Client-Side Validation & Instant Feedback ---
+        function handleContactSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('contact-name').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value.trim();
+
+            let isValid = true;
+
+            if (name.length < 2) {
+                document.getElementById('err-name').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-name').classList.add('hidden');
+            }
+
+            const digitsOnly = phone.replace(/\D/g, '');
+            if (digitsOnly.length < 9 || digitsOnly.length > 12) {
+                document.getElementById('err-phone').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-phone').classList.add('hidden');
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('err-email').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-email').classList.add('hidden');
+            }
+
+            if (message.length < 5) {
+                document.getElementById('err-message').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-message').classList.add('hidden');
+            }
+
+            if (!isValid) return;
+
+            const formEl = document.getElementById('contact-form');
+            const successEl = document.getElementById('contact-success');
+            const successText = document.getElementById('contact-success-text');
+
+            formEl.classList.add('hidden');
+            successText.textContent = `תודה ${name}! פנייתך בנושא "${subject}" נקלטה במערכת. מומחה חומרה מ-CYBERFORGE יחזור אליך לטלפון ${phone} או למייל ${email} בהקדם.`;
+            successEl.classList.remove('hidden');
+            showToast('הפנייה נשלחה בהצלחה!');
+        }
+
+        function resetContactForm() {
+            const formEl = document.getElementById('contact-form');
+            const successEl = document.getElementById('contact-success');
+            formEl.reset();
+            successEl.classList.add('hidden');
+            formEl.classList.remove('hidden');
+        }
+
+        // --- 7. Initialize Catalog on Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog('all');
+        });
+    </script>
+</body>
+</html>
