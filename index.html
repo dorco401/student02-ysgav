@@ -245,7 +245,13 @@
                     <button onclick="navigateTo('home')" data-page="home" class="nav-link active text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
                         דף בית
                     </button>
-                    <button onclick="navigateTo('offer')" data-page="offer" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
+                    <button onclick="navigateTo('games')" data-page="games" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
+                        משחקים
+                    </button>
+                    <button onclick="navigateTo('games')" data-page="games" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-base text-slate-200 hover:bg-white/5">
+                <i class="fa-solid fa-gamepad ml-2 w-5"></i> משחקים
+            </button>
+            <button onclick="navigateTo('offer')" data-page="offer" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
                         מה אנחנו מציעים
                     </button>
                     <button onclick="navigateTo('about')" data-page="about" class="nav-link text-base font-bold text-slate-200 hover:text-arctic-ice py-1">
@@ -836,6 +842,456 @@
             </div>
         </section>
 
+        <!-- PAGE: משחקים - המשחק המקורי משולב ישירות בקובץ האתר -->
+        <section id="page-games" class="page-section">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-arctic-surface border border-arctic-ice/40 text-arctic-ice text-sm font-bold"><i class="fa-solid fa-gamepad"></i> CYBERFORGE ARCADE</span>
+                    <h1 class="font-display font-black text-4xl sm:text-5xl mt-5 text-white">אזור <span class="text-gradient-arctic">המשחקים</span></h1>
+                    <p class="text-slate-300 mt-3 text-lg">המשחק של דור המלך 👑 — התחילו לשחק, צברו נקודות ושברו שיאים!</p>
+                </div>
+                <div class="bg-arctic-surface border border-arctic-ice/40 rounded-3xl p-2 sm:p-4 shadow-neon-ice overflow-hidden">
+                    <iframe id="dor-game-frame" title="המשחק של דור המלך" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;he&quot; dir=&quot;rtl&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;המשחק של דור המלך&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            margin: 0;
+            background-color: #0b0c10;
+            color: #66fcf1;
+            font-family: &#x27;Segoe UI&#x27;, Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* מסך פתיחה וטבלת מובילים */
+        #startScreen {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(11, 12, 16, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            text-align: center;
+        }
+        h1.title {
+            font-size: 40px;
+            color: #ff5722;
+            text-shadow: 0 0 20px #ff5722;
+            margin-bottom: 10px;
+        }
+        h2.subtitle {
+            font-size: 24px;
+            color: #4dc3ff;
+            max-width: 800px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background-color: #45a29e;
+            color: #0b0c10;
+            border: none;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #45a29e;
+            transition: 0.2s;
+            margin-bottom: 30px;
+        }
+        .btn:hover { background-color: #66fcf1; transform: scale(1.05); }
+
+        #leaderboardContainer {
+            background: #1f2833;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #66fcf1;
+            width: 300px;
+        }
+        #leaderboardContainer h3 { margin-top: 0; color: #f1c40f; }
+        #leaderboardList { list-style: none; padding: 0; margin: 0; }
+        #leaderboardList li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #45a29e;
+        }
+
+        /* אנימציית מעבר שלב */
+        #transitionScreen {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #levelUpText {
+            font-size: 60px;
+            color: #f1c40f;
+            text-shadow: 0 0 30px #f1c40f;
+            z-index: 51;
+            margin-bottom: -100px;
+        }
+        .flying-donkey {
+            font-size: 150px;
+            position: absolute;
+            animation: flyAcross 2.5s ease-in-out forwards;
+        }
+        @keyframes flyAcross {
+            0% { transform: translate(-50vw, 50vh) scale(0.5) rotate(-20deg); opacity: 0; }
+            50% { transform: translate(0, 0) scale(1.5) rotate(0deg); opacity: 1; }
+            100% { transform: translate(50vw, -50vh) scale(0.5) rotate(20deg); opacity: 0; }
+        }
+
+        /* ממשק המשחק */
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            font-size: 20px;
+            margin: 15px 0 10px 0;
+            font-weight: bold;
+        }
+        canvas {
+            background-color: #000;
+            border: 3px solid #45a29e;
+            box-shadow: 0 0 15px #45a29e;
+            border-radius: 5px;
+            transition: box-shadow 0.5s;
+        }
+        #powerupStatus { color: #f39c12; min-height: 24px; font-weight: bold; margin-bottom: 5px; }
+        #gameContainer { display: none; flex-direction: column; align-items: center; }
+        /* Keep the original 800×600 game responsive inside the site. */
+        #gameContainer { width: 100%; max-width: 820px; margin-inline: auto; }
+        #gameCanvas { width: min(800px, calc(100vw - 28px)); height: auto; max-width: 100%; }
+        #startScreen { box-sizing: border-box; padding: 22px 12px; overflow-y: auto; }
+        @media (max-width: 600px) {
+            h1.title { font-size: 28px; }
+            h2.subtitle { font-size: 17px; }
+            .btn { font-size: 19px; padding: 12px 28px; margin-bottom: 18px; }
+            #leaderboardContainer { max-width: calc(100vw - 54px); }
+            .stats-container { font-size: 16px; }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- מסך פתיחה --&gt;
+    &lt;div id=&quot;startScreen&quot;&gt;
+        &lt;h1 class=&quot;title&quot;&gt;המשחק של דור המלך 👑&lt;/h1&gt;
+        &lt;h2 class=&quot;subtitle&quot;&gt;בואו לשחק ולקבל פרסים משוגעים!&lt;br&gt;מי שיזכה במקום הראשון מקבל טסלה 🚗&lt;/h2&gt;
+        &lt;button class=&quot;btn&quot; onclick=&quot;startGame()&quot;&gt;התחל משחק&lt;/button&gt;
+        
+        &lt;div id=&quot;leaderboardContainer&quot;&gt;
+            &lt;h3&gt;🏆 טבלת אלופים (Top 5)&lt;/h3&gt;
+            &lt;ul id=&quot;leaderboardList&quot;&gt;&lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- מסך מעבר שלב --&gt;
+    &lt;div id=&quot;transitionScreen&quot;&gt;
+        &lt;div id=&quot;levelUpText&quot;&gt;שלב 2!&lt;/div&gt;
+        &lt;div class=&quot;flying-donkey&quot; id=&quot;animatedDonkey&quot;&gt;🐴🚀&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- אזור המשחק --&gt;
+    &lt;div id=&quot;gameContainer&quot;&gt;
+        &lt;div class=&quot;stats-container&quot;&gt;
+            &lt;div id=&quot;scoreBoard&quot;&gt;ניקוד: 0&lt;/div&gt;
+            &lt;div id=&quot;levelBoard&quot;&gt;שלב: 1&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;powerupStatus&quot;&gt;&lt;/div&gt;
+        &lt;canvas id=&quot;gameCanvas&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const canvas = document.getElementById(&#x27;gameCanvas&#x27;);
+        const ctx = canvas.getContext(&#x27;2d&#x27;);
+        const scoreBoard = document.getElementById(&#x27;scoreBoard&#x27;);
+        const levelBoard = document.getElementById(&#x27;levelBoard&#x27;);
+        const powerupStatus = document.getElementById(&#x27;powerupStatus&#x27;);
+        
+        const startScreen = document.getElementById(&#x27;startScreen&#x27;);
+        const gameContainer = document.getElementById(&#x27;gameContainer&#x27;);
+        const transitionScreen = document.getElementById(&#x27;transitionScreen&#x27;);
+        const levelUpText = document.getElementById(&#x27;levelUpText&#x27;);
+        const animatedDonkey = document.getElementById(&#x27;animatedDonkey&#x27;);
+        const leaderboardList = document.getElementById(&#x27;leaderboardList&#x27;);
+
+        let score = 0;
+        let level = 1;
+        let isPaused = false;
+        let gameOver = false;
+        let frames = 0;
+
+        // מערכת Leaderboard
+        let leaderboard = JSON.parse(localStorage.getItem(&#x27;dorKingLeaderboard&#x27;)) || [];
+        
+        function updateLeaderboardDisplay() {
+            leaderboardList.innerHTML = &#x27;&#x27;;
+            if (leaderboard.length === 0) {
+                leaderboardList.innerHTML = &#x27;&lt;li&gt;אין עדיין שיאים. תהיו הראשונים!&lt;/li&gt;&#x27;;
+            } else {
+                leaderboard.forEach((entry, index) =&gt; {
+                    let li = document.createElement(&#x27;li&#x27;);
+                    li.innerHTML = `&lt;span&gt;#${index + 1} ${entry.name}&lt;/span&gt; &lt;span&gt;${entry.score} נק&#x27;&lt;/span&gt;`;
+                    leaderboardList.appendChild(li);
+                });
+            }
+        }
+        updateLeaderboardDisplay();
+
+        function saveScore(newScore) {
+            if (newScore &gt; 0) {
+                let playerName = prompt(&quot;המשחק נגמר! הכנס את שמך לטבלת המובילים (מיקום ראשון זוכה בטסלה!):&quot;) || &quot;שחקן אנונימי&quot;;
+                leaderboard.push({ name: playerName, score: newScore });
+                leaderboard.sort((a, b) =&gt; b.score - a.score);
+                leaderboard = leaderboard.slice(0, 5); // שומר רק 5 ראשונים
+                localStorage.setItem(&#x27;dorKingLeaderboard&#x27;, JSON.stringify(leaderboard));
+            }
+        }
+
+        // משתני משחק
+        let player = { x: 375, y: 530, width: 50, height: 50, speed: 8, dx: 0, hasShield: false, multiShot: false };
+        let bullets = [];
+        let enemies = [];
+        let powerUps = [];
+        
+        let enemySpawnRate = 70;
+        let powerUpSpawnRate = 350;
+        let enemyBaseSpeed = 2;
+        let activeTimers = { shield: null, laser: null };
+
+        function resetGameParams() {
+            score = 0;
+            level = 1;
+            player.x = canvas.width / 2 - 25;
+            player.hasShield = false;
+            player.multiShot = false;
+            bullets = [];
+            enemies = [];
+            powerUps = [];
+            enemySpawnRate = 70;
+            enemyBaseSpeed = 2;
+            gameOver = false;
+            isPaused = false;
+            scoreBoard.innerText = &quot;ניקוד: 0&quot;;
+            levelBoard.innerText = &quot;שלב: 1&quot;;
+            powerupStatus.innerText = &quot;&quot;;
+            canvas.style.borderColor = &quot;#45a29e&quot;;
+            canvas.style.boxShadow = &quot;0 0 15px #45a29e&quot;;
+        }
+
+        function startGame() {
+            startScreen.style.display = &#x27;none&#x27;;
+            gameContainer.style.display = &#x27;flex&#x27;;
+            resetGameParams();
+            requestAnimationFrame(loop);
+        }
+
+        // מעבר שלב
+        function checkLevelUp() {
+            let nextLevel = Math.floor(score / 100) + 1;
+            if (nextLevel &gt; level) {
+                level = nextLevel;
+                levelBoard.innerText = &quot;שלב: &quot; + level;
+                
+                // שינוי צבע המסגרת לפי שלב
+                const colors = [&quot;#45a29e&quot;, &quot;#ff5722&quot;, &quot;#9c27b0&quot;, &quot;#e91e63&quot;, &quot;#00bcd4&quot;];
+                let currentColor = colors[Math.min(level - 1, colors.length - 1)];
+                canvas.style.borderColor = currentColor;
+                canvas.style.boxShadow = `0 0 25px ${currentColor}`;
+
+                // הפעלת אנימציית מעבר
+                triggerTransitionAnimation();
+                
+                // הגברת קושי
+                enemySpawnRate = Math.max(20, 70 - (level * 10));
+                enemyBaseSpeed = 2 + (level * 0.8);
+            }
+        }
+
+        function triggerTransitionAnimation() {
+            isPaused = true;
+            levelUpText.innerText = `שלב ${level}!`;
+            transitionScreen.style.display = &#x27;flex&#x27;;
+            
+            // איפוס האנימציה כדי שתפעל מחדש
+            animatedDonkey.style.animation = &#x27;none&#x27;;
+            animatedDonkey.offsetHeight; // Trigger reflow
+            animatedDonkey.style.animation = &#x27;flyAcross 2.5s ease-in-out forwards&#x27;;
+
+            setTimeout(() =&gt; {
+                transitionScreen.style.display = &#x27;none&#x27;;
+                isPaused = false;
+                requestAnimationFrame(loop);
+            }, 2500);
+        }
+
+        // ציור ועדכון
+        function drawPlayer() {
+            ctx.font = &quot;50px Arial&quot;;
+            ctx.fillText(&quot;👽&quot;, player.x, player.y + 40);
+            if (player.hasShield) {
+                ctx.beginPath();
+                ctx.arc(player.x + 25, player.y + 25, 35, 0, Math.PI * 2);
+                ctx.strokeStyle = &quot;#4dc3ff&quot;;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            }
+        }
+
+        function activatePowerUp(type) {
+            if (type === &#x27;shield&#x27;) {
+                player.hasShield = true;
+                powerupStatus.innerText = &quot;מגן פעיל!&quot;;
+                powerupStatus.style.color = &quot;#4dc3ff&quot;;
+                clearTimeout(activeTimers.shield);
+                activeTimers.shield = setTimeout(() =&gt; { player.hasShield = false; if(!player.multiShot) powerupStatus.innerText = &quot;&quot;; }, 5000);
+            } else if (type === &#x27;laser&#x27;) {
+                player.multiShot = true;
+                powerupStatus.innerText = &quot;ירי משולש פעיל!&quot;;
+                powerupStatus.style.color = &quot;#f1c40f&quot;;
+                clearTimeout(activeTimers.laser);
+                activeTimers.laser = setTimeout(() =&gt; { player.multiShot = false; if(!player.hasShield) powerupStatus.innerText = &quot;&quot;; }, 5000);
+            }
+        }
+
+        function update() {
+            if (gameOver || isPaused) return;
+
+            player.x += player.dx;
+            if (player.x &lt; 0) player.x = 0;
+            if (player.x + player.width &gt; canvas.width) player.x = canvas.width - player.width;
+
+            bullets.forEach((b, index) =&gt; {
+                b.y -= b.speed;
+                b.x += b.dx;
+                if (b.y &lt; 0 || b.x &lt; 0 || b.x &gt; canvas.width) bullets.splice(index, 1);
+            });
+
+            if (frames % enemySpawnRate === 0) {
+                enemies.push({ x: Math.random() * (canvas.width - 50), y: -50, width: 50, height: 50, speed: Math.random() * 2 + enemyBaseSpeed });
+            }
+
+            if (frames % powerUpSpawnRate === 0) {
+                powerUps.push({ x: Math.random() * (canvas.width - 40), y: -40, width: 40, height: 40, speed: 3, type: Math.random() &gt; 0.5 ? &#x27;shield&#x27; : &#x27;laser&#x27; });
+            }
+
+            powerUps.forEach((p, pIndex) =&gt; {
+                p.y += p.speed;
+                if (p.y &gt; canvas.height) powerUps.splice(pIndex, 1);
+                else if (player.x &lt; p.x + p.width &amp;&amp; player.x + player.width &gt; p.x &amp;&amp; player.y &lt; p.y + p.height &amp;&amp; player.y + player.height &gt; p.y) {
+                    activatePowerUp(p.type);
+                    powerUps.splice(pIndex, 1);
+                }
+            });
+
+            enemies.forEach((e, eIndex) =&gt; {
+                e.y += e.speed;
+                if (level &gt;= 2) e.x += Math.sin(frames * 0.05 + eIndex) * (level * 0.5); // תנועה גלית חזקה יותר בשלבים מתקדמים
+
+                if (e.y &gt; canvas.height) {
+                    enemies.splice(eIndex, 1);
+                    score = Math.max(0, score - 5);
+                    scoreBoard.innerText = &quot;ניקוד: &quot; + score;
+                }
+
+                bullets.forEach((b, bIndex) =&gt; {
+                    if (b.x &gt; e.x &amp;&amp; b.x &lt; e.x + e.width &amp;&amp; b.y &gt; e.y &amp;&amp; b.y &lt; e.y + e.height) {
+                        enemies.splice(eIndex, 1);
+                        bullets.splice(bIndex, 1);
+                        score += 10;
+                        scoreBoard.innerText = &quot;ניקוד: &quot; + score;
+                        checkLevelUp();
+                    }
+                });
+
+                if (player.x &lt; e.x + e.width - 15 &amp;&amp; player.x + player.width - 15 &gt; e.x &amp;&amp; player.y &lt; e.y + e.height - 15 &amp;&amp; player.y + player.height - 15 &gt; e.y) {
+                    if (player.hasShield) {
+                        enemies.splice(eIndex, 1);
+                    } else {
+                        endGame();
+                    }
+                }
+            });
+
+            frames++;
+        }
+
+        function endGame() {
+            gameOver = true;
+            saveScore(score);
+            updateLeaderboardDisplay();
+            gameContainer.style.display = &#x27;none&#x27;;
+            startScreen.style.display = &#x27;flex&#x27;;
+        }
+
+        function draw() {
+            ctx.fillStyle = `rgba(${Math.min(30 * level, 100)}, 0, 0, 0.4)`; // הרקע מאדים ככל שעולים שלב
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // ציור כוכבים
+            ctx.fillStyle = &quot;white&quot;;
+            if (frames % (Math.max(2, 10 - level)) === 0) ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+
+            drawPlayer();
+            
+            ctx.font = &quot;40px Arial&quot;;
+            powerUps.forEach(p =&gt; ctx.fillText(p.type === &#x27;shield&#x27; ? &quot;🛡️&quot; : &quot;⚡&quot;, p.x, p.y + 35));
+            
+            ctx.fillStyle = &quot;#66fcf1&quot;;
+            bullets.forEach(b =&gt; { ctx.beginPath(); ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2); ctx.fill(); });
+            
+            ctx.font = &quot;50px Arial&quot;;
+            enemies.forEach(e =&gt; ctx.fillText(&quot;🐴&quot;, e.x, e.y + 40));
+        }
+
+        function loop() {
+            if (!isPaused &amp;&amp; !gameOver) {
+                update();
+                draw();
+                requestAnimationFrame(loop);
+            }
+        }
+
+        document.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+            if (isPaused || gameOver) return;
+            if (e.key === &#x27;ArrowLeft&#x27;) player.dx = -player.speed;
+            if (e.key === &#x27;ArrowRight&#x27;) player.dx = player.speed;
+            if (e.key === &#x27; &#x27; || e.key === &#x27;Spacebar&#x27;) {
+                if (player.multiShot) {
+                    bullets.push({ x: player.x + player.width / 2, y: player.y, radius: 5, speed: 10, dx: 0 });
+                    bullets.push({ x: player.x + player.width / 2, y: player.y, radius: 5, speed: 10, dx: -3 });
+                    bullets.push({ x: player.x + player.width / 2, y: player.y, radius: 5, speed: 10, dx: 3 });
+                } else {
+                    bullets.push({ x: player.x + player.width / 2, y: player.y, radius: 5, speed: 10, dx: 0 });
+                }
+            }
+        });
+
+        document.addEventListener(&#x27;keyup&#x27;, (e) =&gt; {
+            if (e.key === &#x27;ArrowLeft&#x27; || e.key === &#x27;ArrowRight&#x27;) player.dx = 0;
+        });
+
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" style="display:block;width:100%;height:760px;background:#0b0c10;border:0;border-radius:18px;" allow="fullscreen" loading="eager"></iframe>
+                </div>
+                <p class="text-center text-slate-400 text-sm mt-5">שליטה: החצים ימינה ושמאלה לתנועה, מקש הרווח לירי. לחצו בתוך המשחק כדי להפעיל את המקלדת.</p>
+            </div>
+        </section>
+
     </main>
 
     <!-- ==================== FOOTER WITH ARCTIC CYBERFORGE LOGO ==================== -->
@@ -858,6 +1314,7 @@
 
             <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-300 font-medium">
                 <button onclick="navigateTo('home')" class="hover:text-arctic-ice transition">דף בית</button>
+                <button onclick="navigateTo('games')" class="hover:text-arctic-ice transition">משחקים</button>
                 <button onclick="navigateTo('offer')" class="hover:text-arctic-ice transition">מה אנחנו מציעים</button>
                 <button onclick="navigateTo('about')" class="hover:text-arctic-ice transition">אודות</button>
                 <button onclick="navigateTo('contact')" class="hover:text-arctic-ice transition">צור קשר</button>
@@ -1010,7 +1467,7 @@
 
         // --- 3. SPA Navigation Controller ---
         function navigateTo(pageId) {
-            if (!['home', 'offer', 'about', 'contact'].includes(pageId)) return;
+            if (!['home', 'games', 'offer', 'about', 'contact'].includes(pageId)) return;
             currentPage = pageId;
 
             document.querySelectorAll('.page-section').forEach(sec => {
